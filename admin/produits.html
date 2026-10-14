@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produits Admin — Tiramisu</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ADMIN ===== -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="produits.html">Produits</a></li>
+      <li><a href="commandes.html">Commandes</a></li>
+      <li><a href="categories.html">Catégories</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <span id="admin-nom" style="font-size:0.85rem; color:var(--gris);"></span>
+      <button class="btn btn-outline" onclick="seDeconnecter()">Déconnexion</button>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENU ===== -->
+  <main class="container" style="padding-top:2rem; padding-bottom:4rem;">
+
+    <!-- En-tête -->
+    <div style="display:flex; justify-content:space-between;
+                align-items:center; margin-bottom:2rem;">
+      <div>
+        <h1 style="font-family:Georgia,serif; font-size:2.2rem; color:var(--marron);">
+          Produits
+        </h1>
+        <p style="color:var(--gris); font-size:0.9rem;">
+          <span id="nb-produits">0</span> produit(s) au total
+        </p>
+      </div>
+      <button class="btn btn-caramel" onclick="ouvrirModal()">
+        + Nouveau produit
+      </button>
+    </div>
+
+    <!-- Tableau produits -->
+    <div class="card" style="overflow:hidden;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr style="background:var(--creme);">
+            <th class="th-admin">Produit</th>
+            <th class="th-admin">Catégorie</th>
+            <th class="th-admin">Prix</th>
+            <th class="th-admin">Stock</th>
+            <th class="th-admin">Vedette</th>
+            <th class="th-admin">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableau-produits">
+          <tr>
+            <td colspan="6" style="text-align:center; padding:2rem; color:var(--gris);">
+              Chargement...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- ===== MODAL PRODUIT ===== -->
+  <div id="modal-overlay"
+    style="display:none; position:fixed; inset:0;
+           background:rgba(0,0,0,0.5); z-index:200;
+           align-items:center; justify-content:center;">
+    <div style="background:white; border-radius:20px; width:100%;
+                max-width:550px; max-height:90vh; overflow-y:auto;
+                margin:1rem; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+
+      <!-- En-tête modal -->
+      <div style="display:flex; justify-content:space-between; align-items:center;
+                  padding:1.5rem; border-bottom:1px solid var(--creme-dark);">
+        <h2 style="font-family:Georgia,serif; font-size:1.3rem; color:var(--marron);"
+          id="modal-titre">Nouveau produit</h2>
+        <button onclick="fermerModal()"
+          style="background:none; border:none; font-size:1.5rem;
+                 cursor:pointer; color:var(--gris);">×</button>
+      </div>
+
+      <!-- Corps modal -->
+      <div style="padding:1.5rem;">
+        <input type="hidden" id="produit-id"/>
+
+        <div class="form-group">
+          <label>Nom *</label>
+          <input type="text" id="produit-nom" class="form-control"
+            placeholder="Tiramisu classique"/>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="produit-description" class="form-control"
+            rows="3" placeholder="Décrivez votre produit..."></textarea>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Prix (€) *</label>
+            <input type="number" id="produit-prix" class="form-control"
+              step="0.01" min="0" placeholder="12.90"/>
+          </div>
+          <div class="form-group">
+            <label>Stock *</label>
+            <input type="number" id="produit-stock" class="form-control"
+              min="0" placeholder="10"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Catégorie</label>
+          <select id="produit-categorie" class="form-control">
+            <option value="">— Choisir une catégorie —</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>URL de l'image</label>
+          <input type="url" id="produit-image" class="form-control"
+            placeholder="https://exemple.com/image.jpg"/>
+          <div id="apercu-image" style="margin-top:0.5rem; display:none;">
+            <img id="img-apercu"
+              style="width:100%; height:150px; object-fit:cover;
+                     border-radius:10px; border:1px solid var(--creme-dark);"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+            <input type="checkbox" id="produit-vedette"
+              style="width:16px; height:16px; accent-color:var(--caramel);"/>
+            Afficher en vedette sur la page d'accueil
+          </label>
+        </div>
+
+        <!-- Erreur -->
+        <div id="modal-erreur"
+          style="color:var(--rouge); font-size:0.85rem;
+                 margin-bottom:1rem; display:none;">
+        </div>
+
+        <!-- Boutons -->
+        <div style="display:flex; gap:1rem; margin-top:1rem;">
+          <button class="btn btn-outline" style="flex:1;" onclick="fermerModal()">
+            Annuler
+          </button>
+          <button class="btn btn-caramel" style="flex:1;" onclick="sauvegarderProduit()">
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu Admin</h3>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Tiramisu.</div>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    let categories = []
+    let produitEnEdition = null
+
+    // Vérifier accès admin
+    function verifierAdmin() {
+      const user  = JSON.parse(localStorage.getItem('user') || 'null')
+      const token = localStorage.getItem('token')
+      if (!user || !token || user.role !== 'admin') {
+        window.location.href = '../connexion.html'
+        return
+      }
+      document.getElementById('admin-nom').textContent = user.prenom
+      chargerCategories()
+      chargerProduits()
+    }
+
+    // Charger catégories
+    async function chargerCategories() {
+      const token = localStorage.getItem('token')
+      try {
+        const res  = await fetch(`${API_URL}/categories`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        const data = await res.json()
+        categories = data.data || []
+        const select = document.getElementById('produit-categorie')
+        categories.forEach(c => {
+          const opt = document.createElement('option')
+          opt.value = c.id
+          opt.textContent = c.nom
+          select.appendChild(opt)
+        })
+      } catch(err) {
+        console.error('Erreur catégories:', err)
+      }
+    }
+
+    // Charger produits
+    async function chargerProduits() {
+      const token = localStorage.getItem('token')
+      try {
+        const res  = await fetch(`${API_URL}/produits`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        const data    = await res.json()
+        const produits = data.data || []
+
+        document.getElementById('nb-produits').textContent = produits.length
+
+        if (produits.length === 0) {
+          document.getElementById('tableau-produits').innerHTML = `
+            <tr>
+              <td colspan="6"
+                style="text-align:center; padding:2rem; color:var(--gris);">
+                Aucun produit. Créez le premier !
+              </td>
+            </tr>`
+          return
+        }
+
+        document.getElementById('tableau-produits').innerHTML =
+          produits.map(p => `
+            <tr style="border-top:1px solid var(--creme-dark);">
+              <td class="td-admin">
+                <div style="display:flex; align-items:center; gap:0.8rem;">
+                  <div style="width:44px; height:44px; border-radius:10px;
+                              overflow:hidden; background:var(--creme);
+                              flex-shrink:0; display:flex; align-items:center;
+                              justify-content:center; font-size:1.3rem;">
+                    ${p.image
+                      ? `<img src="${p.image}"
+                              style="width:100%; height:100%; object-fit:cover;"/>`
+                      : '🎂'}
+                  </div>
+                  <div>
+                    <p style="font-weight:600; font-size:0.88rem;
+                               color:var(--marron);">${p.nom}</p>
+                    <p style="font-size:0.75rem; color:var(--gris-clair);
+                               max-width:180px; white-space:nowrap;
+                               overflow:hidden; text-overflow:ellipsis;">
+                      ${p.description || ''}
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td class="td-admin">
+                ${p.categorie?.nom || '<span style="color:var(--gris-clair);">—</span>'}
+              </td>
+              <td class="td-admin" style="font-weight:600;">
+                ${parseFloat(p.prix).toFixed(2)} €
+              </td>
+              <td class="td-admin">
+                <span class="badge ${p.stock > 0 ? 'badge-vert' : 'badge-rouge'}">
+                  ${p.stock > 0 ? p.stock + ' dispo' : 'Épuisé'}
+                </span>
+              </td>
+              <td class="td-admin">
+                ${p.vedette ? '⭐' : '—'}
+              </td>
+              <td class="td-admin">
+                <div style="display:flex; gap:0.5rem;">
+                  <button onclick="editerProduit(${JSON.stringify(p).replace(/"/g, '&quot;')})"
+                    style="padding:0.3rem 0.8rem; border-radius:8px;
+                           border:1.5px solid var(--caramel); background:white;
+                           color:var(--caramel); font-size:0.78rem; cursor:pointer;">
+                    ✏️ Modifier
+                  </button>
+                  <button onclick="supprimerProduit(${p.id})"
+                    style="padding:0.3rem 0.8rem; border-radius:8px;
+                           border:1.5px solid var(--rouge); background:white;
+                           color:var(--rouge); font-size:0.78rem; cursor:pointer;">
+                    🗑️ Supprimer
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `).join('')
+
+      } catch(err) {
+        document.getElementById('tableau-produits').innerHTML = `
+          <tr>
+            <td colspan="6"
+              style="text-align:center; padding:2rem; color:var(--rouge);">
+              Erreur de chargement
+            </td>
+          </tr>`
+      }
+    }
+
+    // Ouvrir modal création
+    function ouvrirModal() {
+      produitEnEdition = null
+      document.getElementById('modal-titre').textContent = 'Nouveau produit'
+      document.getElementById('produit-id').value          = ''
+      document.getElementById('produit-nom').value         = ''
+      document.getElementById('produit-description').value = ''
+      document.getElementById('produit-prix').value        = ''
+      document.getElementById('produit-stock').value       = ''
+      document.getElementById('produit-categorie').value   = ''
+      document.getElementById('produit-image').value       = ''
+      document.getElementById('produit-vedette').checked   = false
+      document.getElementById('apercu-image').style.display = 'none'
+      document.getElementById('modal-erreur').style.display = 'none'
+      document.getElementById('modal-overlay').style.display = 'flex'
+    }
+
+    // Ouvrir modal édition
+    function editerProduit(p) {
+      produitEnEdition = p
+      document.getElementById('modal-titre').textContent       = 'Modifier le produit'
+      document.getElementById('produit-id').value              = p.id
+      document.getElementById('produit-nom').value             = p.nom
+      document.getElementById('produit-description').value     = p.description || ''
+      document.getElementById('produit-prix').value            = p.prix
+      document.getElementById('produit-stock').value           = p.stock
+      document.getElementById('produit-categorie').value       = p.categorie?.id || ''
+      document.getElementById('produit-image').value           = p.image || ''
+      document.getElementById('produit-vedette').checked       = !!p.vedette
+      document.getElementById('modal-erreur').style.display    = 'none'
+
+      if (p.image) {
+        document.getElementById('img-apercu').src              = p.image
+        document.getElementById('apercu-image').style.display  = 'block'
+      }
+
+      document.getElementById('modal-overlay').style.display   = 'flex'
+    }
+
+    // Fermer modal
+    function fermerModal() {
+      document.getElementById('modal-overlay').style.display = 'none'
+    }
+
+    // Aperçu image
+    document.getElementById('produit-image').addEventListener('input', function() {
+      const url    = this.value.trim()
+      const apercu = document.getElementById('apercu-image')
+      if (url) {
+        document.getElementById('img-apercu').src = url
+        apercu.style.display = 'block'
+      } else {
+        apercu.style.display = 'none'
+      }
+    })
+
+    // Sauvegarder produit
+    async function sauvegarderProduit() {
+      const erreur = document.getElementById('modal-erreur')
+      erreur.style.display = 'none'
+
+      const nom         = document.getElementById('produit-nom').value.trim()
+      const description = document.getElementById('produit-description').value.trim()
+      const prix        = document.getElementById('produit-prix').value
+      const stock       = document.getElementById('produit-stock').value
+      const categorieId = document.getElementById('produit-categorie').value
+      const image       = document.getElementById('produit-image').value.trim()
+      const vedette     = document.getElementById('produit-vedette').checked
+      const id          = document.getElementById('produit-id').value
+      const token       = localStorage.getItem('token')
+
+      if (!nom || !prix || stock === '') {
+        erreur.textContent = 'Veuillez remplir tous les champs obligatoires.'
+        erreur.style.display = 'block'
+        return
+      }
+
+      const payload = {
+        nom, description, prix: parseFloat(prix),
+        stock: parseInt(stock),
+        categorie_id: categorieId || null,
+        image: image || null,
+        vedette: vedette ? 1 : 0
+      }
+
+      try {
+        const url    = id
+          ? `${API_URL}/produits/${id}`
+          : `${API_URL}/produits`
+        const method = id ? 'PUT' : 'POST'
+
+        const res  = await fetch(url, {
+          method,
+          headers: {
+            'Content-Type':  'application/json',
+            'Accept':        'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        })
+        const data = await res.json()
+
+        if (!res.ok) {
+          erreur.textContent = data.message || 'Erreur lors de la sauvegarde.'
+          erreur.style.display = 'block'
+          return
+        }
+
+        fermerModal()
+        chargerProduits()
+        alert(id ? '✅ Produit mis à jour !' : '✅ Produit créé !')
+
+      } catch(err) {
+        erreur.textContent = 'Erreur réseau. Réessayez.'
+        erreur.style.display = 'block'
+      }
+    }
+
+    // Supprimer produit
+    async function supprimerProduit(id) {
+      if (!confirm('Supprimer ce produit définitivement ?')) return
+      const token = localStorage.getItem('token')
+      try {
+        const res = await fetch(`${API_URL}/produits/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        if (res.ok) {
+          chargerProduits()
+          alert('✅ Produit supprimé !')
+        }
+      } catch(err) {
+        alert('Erreur lors de la suppression.')
+      }
+    }
+
+    // Déconnexion
+    function seDeconnecter() {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      window.location.href = '../connexion.html'
+    }
+
+    // Fermer modal en cliquant dehors
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) fermerModal()
+    })
+
+    verifierAdmin()
+  </script>
+
+</body>
+</html>

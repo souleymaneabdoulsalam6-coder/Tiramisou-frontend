@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tiramisu— Pâtisserie Artisanale</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="commande-custom.html">Sur mesure</a></li>
+      <li><a href="mon-compte.html">Mon compte</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="panier.html" class="panier-icon">
+        🛍️ <span class="panier-count" id="panier-count">0</span>
+      </a>
+      <a href="connexion.html" class="btn btn-caramel" id="btn-connexion">
+        Connexion
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <p style="font-size:0.75rem; letter-spacing:0.15em; color:var(--caramel); text-transform:uppercase; margin-bottom:1rem;">
+      Pâtisserie artisanale
+    </p>
+    <h1>
+      Chaque gâteau<br>
+      <em>raconte une histoire</em>
+    </h1>
+    <p>
+      Gâteaux, pancakes, cheesecakes, cupcakes et bien plus —
+      préparés à la main et livrés directement chez vous.
+    </p>
+    <div class="hero-btns">
+      <a href="boutique.html" class="btn btn-caramel">Découvrir la boutique</a>
+      <a href="commande-custom.html" class="btn btn-outline">Commande sur mesure</a>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORIES ===== -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Nos catégories</h2>
+    </div>
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="boutique.html?categorie=gateaux" class="categorie-card">🎂 Gâteaux</a>
+      <a href="boutique.html?categorie=pancakes" class="categorie-card">🥞 Pancakes</a>
+      <a href="boutique.html?categorie=cheesecakes" class="categorie-card">🍰 Cheesecakes</a>
+      <a href="boutique.html?categorie=cupcakes" class="categorie-card">🧁 Cupcakes</a>
+      <a href="boutique.html?categorie=viennoiseries" class="categorie-card">🥐 Viennoiseries</a>
+      <a href="boutique.html?categorie=donuts" class="categorie-card">🍩 Donuts</a>
+    </div>
+  </section>
+
+  <!-- ===== PRODUITS VEDETTES ===== -->
+  <section class="section" style="background:var(--creme); border-radius:24px;">
+    <div class="section-header">
+      <h2 class="section-title">Nos créations du moment</h2>
+      <a href="boutique.html" class="section-link">Voir tout →</a>
+    </div>
+    <div class="grid-produits" id="produits-vedettes">
+      <!-- Chargés dynamiquement via JS -->
+      <div class="card skeleton"></div>
+      <div class="card skeleton"></div>
+      <div class="card skeleton"></div>
+      <div class="card skeleton"></div>
+    </div>
+  </section>
+
+  <!-- ===== BANNIÈRE SUR MESURE ===== -->
+  <section style="background:var(--marron); padding:4rem 2rem; text-align:center; margin-top:3rem;">
+    <h2 style="font-family:Georgia,serif; font-size:2.2rem; color:var(--creme); margin-bottom:1rem;">
+      Un gâteau rien que pour vous
+    </h2>
+    <p style="color:var(--creme-dark); max-width:500px; margin:0 auto 2rem; line-height:1.7;">
+      Anniversaire, mariage, baptême… Décrivez-nous votre rêve
+      et nous le créerons. Parfum, décoration, message — tout est possible.
+    </p>
+    <a href="commande-custom.html" class="btn btn-caramel">Créer ma commande</a>
+  </section>
+
+  <!-- ===== POURQUOI NOUS ===== -->
+  <section class="section">
+    <h2 class="section-title text-center mb-3">Pourquoi choisir Tiramisu ?</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:2rem;">
+      <div class="text-center">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">🧑‍🍳</div>
+        <h3 style="font-family:Georgia,serif; margin-bottom:0.5rem;">Fait main</h3>
+        <p style="color:var(--gris); font-size:0.9rem;">Chaque produit est préparé avec soin par nos pâtissiers.</p>
+      </div>
+      <div class="text-center">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">🚚</div>
+        <h3 style="font-family:Georgia,serif; margin-bottom:0.5rem;">Livraison rapide</h3>
+        <p style="color:var(--gris); font-size:0.9rem;">Livraison 7j/7 directement à votre porte.</p>
+      </div>
+      <div class="text-center">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">🌿</div>
+        <h3 style="font-family:Georgia,serif; margin-bottom:0.5rem;">Ingrédients frais</h3>
+        <p style="color:var(--gris); font-size:0.9rem;">Uniquement des ingrédients naturels et de qualité.</p>
+      </div>
+      <div class="text-center">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">🎨</div>
+        <h3 style="font-family:Georgia,serif; margin-bottom:0.5rem;">Sur mesure</h3>
+        <p style="color:var(--gris); font-size:0.9rem;">Personnalisez votre commande selon vos envies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu</h3>
+        <p style="color:var(--creme-dark); font-size:0.85rem; line-height:1.7;">
+          Pâtisseries artisanales préparées avec amour, livrées chez vous.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gris-clair);">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="commande-custom.html">Sur mesure</a></li>
+          <li><a href="connexion.html">Connexion</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gris-clair);">Contact</h4>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">contact@tiramisu.com</p>
+        <p style="color:var(--creme-dark); font-size:0.85rem; margin-top:0.5rem;">Livraison 7j/7</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Tiramisu. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/panier.js"></script>
+
+</body>
+</html>

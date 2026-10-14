@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connexion — Tiramisu</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="commande-custom.html">Sur mesure</a></li>
+      <li><a href="mon-compte.html">Mon compte</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="panier.html" class="panier-icon">
+        🛍️ <span class="panier-count" id="panier-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENU ===== -->
+  <main style="min-height:80vh; display:flex; align-items:center; justify-content:center; padding:2rem;">
+    <div style="width:100%; max-width:420px;">
+
+      <!-- Logo -->
+      <div class="text-center mb-3">
+        <a href="index.html" class="navbar-logo" style="font-size:1.8rem;">
+          Tirami<span>su</span>
+        </a>
+        <p style="color:var(--gris); font-size:0.9rem; margin-top:0.5rem;" id="sous-titre">
+          Connectez-vous à votre compte
+        </p>
+      </div>
+
+      <!-- Onglets -->
+      <div style="display:flex; border:1.5px solid var(--creme-dark); border-radius:12px; overflow:hidden; margin-bottom:1.5rem;">
+        <button class="onglet actif-onglet" id="onglet-login" onclick="afficherLogin()">
+          Connexion
+        </button>
+        <button class="onglet" id="onglet-register" onclick="afficherRegister()">
+          Inscription
+        </button>
+      </div>
+
+      <!-- Formulaire Connexion -->
+      <div id="form-login" class="card" style="padding:1.8rem;">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="login-email" class="form-control"
+            placeholder="vous@exemple.com" />
+        </div>
+        <div class="form-group">
+          <label>Mot de passe *</label>
+          <input type="password" id="login-password" class="form-control"
+            placeholder="••••••••" />
+        </div>
+        <div id="login-erreur" style="color:var(--rouge); font-size:0.82rem; margin-bottom:1rem; display:none;"></div>
+        <button class="btn btn-caramel" style="width:100%;" onclick="seConnecter()">
+          Se connecter
+        </button>
+        <p style="text-align:center; margin-top:1rem; font-size:0.82rem; color:var(--gris);">
+          Pas encore de compte ?
+          <a href="#" onclick="afficherRegister()" style="color:var(--caramel);">S'inscrire</a>
+        </p>
+      </div>
+
+      <!-- Formulaire Inscription -->
+      <div id="form-register" class="card" style="padding:1.8rem; display:none;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Prénom *</label>
+            <input type="text" id="reg-prenom" class="form-control" placeholder="Entrez votre Prenom" />
+          </div>
+          <div class="form-group">
+            <label>Nom *</label>
+            <input type="text" id="reg-nom" class="form-control" placeholder="Entrez votre Nom" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="reg-email" class="form-control"
+            placeholder="vous@exemple.com" />
+        </div>
+        <div class="form-group">
+          <label>Mot de passe *</label>
+          <input type="password" id="reg-password" class="form-control"
+            placeholder="Minimum 8 caractères" />
+        </div>
+        <div class="form-group">
+          <label>Confirmer le mot de passe *</label>
+          <input type="password" id="reg-confirm" class="form-control"
+            placeholder="••••••••" />
+        </div>
+        <div id="reg-erreur" style="color:var(--rouge); font-size:0.82rem; margin-bottom:1rem; display:none;"></div>
+        <div id="reg-succes" style="color:var(--vert); font-size:0.82rem; margin-bottom:1rem; display:none;"></div>
+        <button class="btn btn-caramel" style="width:100%;" onclick="sInscrire()">
+          Créer mon compte
+        </button>
+        <p style="text-align:center; margin-top:1rem; font-size:0.82rem; color:var(--gris);">
+          Déjà un compte ?
+          <a href="#" onclick="afficherLogin()" style="color:var(--caramel);">Se connecter</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu</h3>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">
+          Pâtisseries artisanales préparées avec amour.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gris-clair);">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="commande-custom.html">Sur mesure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gris-clair);">Contact</h4>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">contact@tiramisu.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Tiramisu. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/panier.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Basculer entre Login et Register
+    function afficherLogin() {
+      document.getElementById('form-login').style.display = 'block'
+      document.getElementById('form-register').style.display = 'none'
+      document.getElementById('onglet-login').classList.add('actif-onglet')
+      document.getElementById('onglet-register').classList.remove('actif-onglet')
+      document.getElementById('sous-titre').textContent = 'Connectez-vous à votre compte'
+    }
+
+    function afficherRegister() {
+      document.getElementById('form-login').style.display = 'none'
+      document.getElementById('form-register').style.display = 'block'
+      document.getElementById('onglet-login').classList.remove('actif-onglet')
+      document.getElementById('onglet-register').classList.add('actif-onglet')
+      document.getElementById('sous-titre').textContent = 'Créez votre compte'
+    }
+
+    // Connexion
+    async function seConnecter() {
+      const email    = document.getElementById('login-email').value
+      const password = document.getElementById('login-password').value
+      const erreur   = document.getElementById('login-erreur')
+
+      if (!email || !password) {
+        erreur.textContent = 'Veuillez remplir tous les champs.'
+        erreur.style.display = 'block'
+        return
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email, password })
+        })
+        const data = await res.json()
+
+        if (!res.ok) {
+          erreur.textContent = data.message || 'Email ou mot de passe incorrect.'
+          erreur.style.display = 'block'
+          return
+        }
+
+        // Sauvegarder le token
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
+
+        // Redirection
+        if (data.user.role === 'admin') {
+          window.location.href = 'admin/index.html'
+        } else {
+          window.location.href = 'index.html'
+        }
+
+      } catch (err) {
+        erreur.textContent = 'Erreur de connexion. Réessayez.'
+        erreur.style.display = 'block'
+      }
+    }
+
+    // Inscription
+    async function sInscrire() {
+      const prenom   = document.getElementById('reg-prenom').value
+      const nom      = document.getElementById('reg-nom').value
+      const email    = document.getElementById('reg-email').value
+      const password = document.getElementById('reg-password').value
+      const confirm  = document.getElementById('reg-confirm').value
+      const erreur   = document.getElementById('reg-erreur')
+      const succes   = document.getElementById('reg-succes')
+
+      erreur.style.display = 'none'
+      succes.style.display = 'none'
+
+      if (!prenom || !nom || !email || !password) {
+        erreur.textContent = 'Veuillez remplir tous les champs.'
+        erreur.style.display = 'block'
+        return
+      }
+
+      if (password !== confirm) {
+        erreur.textContent = 'Les mots de passe ne correspondent pas.'
+        erreur.style.display = 'block'
+        return
+      }
+
+      if (password.length < 8) {
+        erreur.textContent = 'Le mot de passe doit faire au moins 8 caractères.'
+        erreur.style.display = 'block'
+        return
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ prenom, nom, email, password, password_confirmation: confirm })
+        })
+        const data = await res.json()
+
+        if (!res.ok) {
+          erreur.textContent = data.message || 'Erreur lors de l\'inscription.'
+          erreur.style.display = 'block'
+          return
+        }
+
+        succes.textContent = 'Compte créé avec succès ! Connectez-vous.'
+        succes.style.display = 'block'
+        setTimeout(() => afficherLogin(), 2000)
+
+      } catch (err) {
+        erreur.textContent = 'Erreur. Réessayez.'
+        erreur.style.display = 'block'
+      }
+    }
+  </script>
+
+</body>
+</html>

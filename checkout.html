@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commande — Tiramisu</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="commande-custom.html">Sur mesure</a></li>
+      <li><a href="mon-compte.html">Mon compte</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="panier.html" class="panier-icon">
+        🛍️ <span class="panier-count" id="panier-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENU ===== -->
+  <main class="container" style="padding-top:2rem; padding-bottom:4rem;">
+
+    <h1 style="font-family:Georgia,serif; font-size:2.5rem;
+               color:var(--marron); margin-bottom:2rem;">
+      Finaliser la commande
+    </h1>
+
+    <div style="display:grid; grid-template-columns:1fr 340px; gap:2rem; align-items:start;">
+
+      <!-- Formulaire livraison -->
+      <div class="card" style="padding:2rem;">
+        <h2 style="font-family:Georgia,serif; font-size:1.4rem;
+                   color:var(--marron); margin-bottom:1.5rem;">
+          Adresse de livraison
+        </h2>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Prénom *</label>
+            <input type="text" id="prenom" class="form-control" placeholder="Sophie"/>
+          </div>
+          <div class="form-group">
+            <label>Nom *</label>
+            <input type="text" id="nom" class="form-control" placeholder="Martin"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="email" class="form-control"
+            placeholder="vous@exemple.com"/>
+        </div>
+
+        <div class="form-group">
+          <label>Téléphone *</label>
+          <input type="tel" id="telephone" class="form-control"
+            placeholder="+33 6 00 00 00 00"/>
+        </div>
+
+        <div class="form-group">
+          <label>Adresse *</label>
+          <input type="text" id="adresse" class="form-control"
+            placeholder="12 rue des Pâtissiers"/>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Ville *</label>
+            <input type="text" id="ville" class="form-control" placeholder="Paris"/>
+          </div>
+          <div class="form-group">
+            <label>Code postal *</label>
+            <input type="text" id="code-postal" class="form-control"
+              placeholder="75001"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Note pour le livreur</label>
+          <textarea id="note" class="form-control" rows="3"
+            placeholder="Sonnez au 2ème étage..."></textarea>
+        </div>
+
+        <!-- Info paiement -->
+        <div style="background:var(--creme); border-radius:12px;
+                    padding:1rem; margin-bottom:1.5rem;">
+          <p style="font-size:0.85rem; color:var(--gris);">
+            💳 <strong>Paiement à la livraison</strong> —
+            Le paiement en ligne sera disponible prochainement.
+          </p>
+        </div>
+
+        <!-- Erreur -->
+        <div id="checkout-erreur"
+          style="color:var(--rouge); font-size:0.85rem;
+                 margin-bottom:1rem; display:none;">
+        </div>
+
+        <!-- Bouton -->
+        <button class="btn btn-caramel" style="width:100%; font-size:1rem;"
+          onclick="passerCommande()">
+          ✅ Confirmer la commande
+        </button>
+      </div>
+
+      <!-- Résumé commande -->
+      <div class="card" style="padding:1.5rem; position:sticky; top:80px;">
+        <h2 style="font-family:Georgia,serif; font-size:1.3rem;
+                   color:var(--marron); margin-bottom:1.2rem;">
+          Votre commande
+        </h2>
+        <div id="resume-checkout"></div>
+        <div style="border-top:1.5px solid var(--creme-dark); padding-top:1rem;
+                    display:flex; justify-content:space-between;
+                    font-weight:700; color:var(--marron); font-size:1.1rem;">
+          <span>Total</span>
+          <span id="total-checkout">0.00 €</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu</h3>
+        <p style="color:var(--creme-dark); font-size:0.85rem; line-height:1.7;">
+          Pâtisseries artisanales préparées avec amour.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="commande-custom.html">Sur mesure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Contact</h4>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">
+          contact@tiramisu.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Tiramisu. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/panier.js"></script>
+  <script>
+    // Afficher résumé au chargement
+    function afficherResume() {
+      const panier = getPanier()
+
+      if (panier.length === 0) {
+        window.location.href = 'panier.html'
+        return
+      }
+
+      // Pré-remplir avec les infos utilisateur
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      if (user.prenom) document.getElementById('prenom').value = user.prenom
+      if (user.nom)    document.getElementById('nom').value    = user.nom
+      if (user.email)  document.getElementById('email').value  = user.email
+
+      document.getElementById('resume-checkout').innerHTML =
+        panier.map(i => `
+          <div style="display:flex; justify-content:space-between;
+                      font-size:0.85rem; color:var(--gris); margin-bottom:0.6rem;">
+            <span>${i.nom} × ${i.qty}</span>
+            <span>${(i.prix * i.qty).toFixed(2)} €</span>
+          </div>
+        `).join('')
+
+      const total = panier.reduce((s, i) => s + i.prix * i.qty, 0)
+      document.getElementById('total-checkout').textContent =
+        total.toFixed(2) + ' €'
+    }
+
+    // Passer la commande
+    async function passerCommande() {
+      const erreur = document.getElementById('checkout-erreur')
+      erreur.style.display = 'none'
+
+      const prenom     = document.getElementById('prenom').value.trim()
+      const nom        = document.getElementById('nom').value.trim()
+      const email      = document.getElementById('email').value.trim()
+      const telephone  = document.getElementById('telephone').value.trim()
+      const adresse    = document.getElementById('adresse').value.trim()
+      const ville      = document.getElementById('ville').value.trim()
+      const codePostal = document.getElementById('code-postal').value.trim()
+      const note       = document.getElementById('note').value.trim()
+
+      // Validation
+      if (!prenom || !nom || !email || !telephone || !adresse || !ville || !codePostal) {
+        erreur.textContent = 'Veuillez remplir tous les champs obligatoires.'
+        erreur.style.display = 'block'
+        return
+      }
+
+      const panier = getPanier()
+      const token  = localStorage.getItem('token')
+
+      if (!token) {
+        window.location.href = 'connexion.html'
+        return
+      }
+
+      const payload = {
+        prenom, nom, email, telephone,
+        adresse, ville,
+        code_postal: codePostal,
+        note,
+        lignes: panier.map(i => ({
+          produit_id:   i.id,
+          quantite:     i.qty,
+          prix_unitaire: i.prix
+        }))
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/commandes`, {
+          method: 'POST',
+          headers: {
+            'Content-Type':  'application/json',
+            'Accept':        'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        })
+
+        const data = await res.json()
+
+        if (!res.ok) {
+          erreur.textContent = data.message || 'Erreur lors de la commande.'
+          erreur.style.display = 'block'
+          return
+        }
+
+        // Vider le panier
+        localStorage.removeItem('panier')
+
+        // Rediriger vers confirmation
+        afficherNotification('Commande confirmée ! Merci 🎂')
+        setTimeout(() => {
+          window.location.href = 'mon-compte.html'
+        }, 2000)
+
+      } catch (err) {
+        erreur.textContent = 'Erreur réseau. Réessayez.'
+        erreur.style.display = 'block'
+      }
+    }
+
+    afficherResume()
+    mettreAJourCompteur()
+  </script>
+
+</body>
+</html>

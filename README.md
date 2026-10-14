@@ -1,2 +1,2 @@
 # Tiramisou-frontend
-boutique pâtisserie tiramissou  
+boutique pâtisserie tiramisu

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Admin — Tiramisu</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ADMIN ===== -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="produits.html">Produits</a></li>
+      <li><a href="commandes.html">Commandes</a></li>
+      <li><a href="categories.html">Catégories</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <span id="admin-nom" style="font-size:0.85rem; color:var(--gris);"></span>
+      <button class="btn btn-outline" onclick="seDeconnecter()">
+        Déconnexion
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENU ===== -->
+  <main class="container" style="padding-top:2rem; padding-bottom:4rem;">
+
+    <div style="margin-bottom:2rem;">
+      <h1 style="font-family:Georgia,serif; font-size:2.2rem; color:var(--marron);">
+        Dashboard
+      </h1>
+      <p style="color:var(--gris); font-size:0.9rem;">
+        Bienvenue dans votre espace d'administration.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+                gap:1.5rem; margin-bottom:3rem;">
+
+      <div class="card" style="padding:1.5rem;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🛍️</div>
+        <p style="font-size:2rem; font-weight:700; color:var(--marron);"
+          id="stat-commandes">—</p>
+        <p style="color:var(--gris); font-size:0.85rem;">Commandes totales</p>
+      </div>
+
+      <div class="card" style="padding:1.5rem;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">👥</div>
+        <p style="font-size:2rem; font-weight:700; color:var(--marron);"
+          id="stat-clients">—</p>
+        <p style="color:var(--gris); font-size:0.85rem;">Clients</p>
+      </div>
+
+      <div class="card" style="padding:1.5rem;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">💰</div>
+        <p style="font-size:2rem; font-weight:700; color:var(--marron);"
+          id="stat-revenus">—</p>
+        <p style="color:var(--gris); font-size:0.85rem;">Revenus totaux</p>
+      </div>
+
+      <div class="card" style="padding:1.5rem;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🎂</div>
+        <p style="font-size:2rem; font-weight:700; color:var(--marron);"
+          id="stat-produits">—</p>
+        <p style="color:var(--gris); font-size:0.85rem;">Produits</p>
+      </div>
+
+      <div class="card" style="padding:1.5rem;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">✨</div>
+        <p style="font-size:2rem; font-weight:700; color:var(--marron);"
+          id="stat-customs">—</p>
+        <p style="color:var(--gris); font-size:0.85rem;">Commandes sur mesure</p>
+      </div>
+
+    </div>
+
+    <!-- Raccourcis -->
+    <h2 style="font-family:Georgia,serif; font-size:1.5rem;
+               color:var(--marron); margin-bottom:1.5rem;">
+      Accès rapides
+    </h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+                gap:1rem; margin-bottom:3rem;">
+      <a href="produits.html" class="card"
+        style="padding:1.5rem; text-align:center; text-decoration:none;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🎂</div>
+        <p style="font-family:Georgia,serif; color:var(--marron);">Gérer les produits</p>
+      </a>
+      <a href="commandes.html" class="card"
+        style="padding:1.5rem; text-align:center; text-decoration:none;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">📦</div>
+        <p style="font-family:Georgia,serif; color:var(--marron);">Voir les commandes</p>
+      </a>
+      <a href="categories.html" class="card"
+        style="padding:1.5rem; text-align:center; text-decoration:none;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🏷️</div>
+        <p style="font-family:Georgia,serif; color:var(--marron);">Catégories</p>
+      </a>
+      <a href="customs.html" class="card"
+        style="padding:1.5rem; text-align:center; text-decoration:none;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">✨</div>
+        <p style="font-family:Georgia,serif; color:var(--marron);">Sur mesure</p>
+      </a>
+    </div>
+
+    <!-- Dernières commandes -->
+    <div style="display:flex; justify-content:space-between;
+                align-items:center; margin-bottom:1rem;">
+      <h2 style="font-family:Georgia,serif; font-size:1.5rem; color:var(--marron);">
+        Dernières commandes
+      </h2>
+      <a href="commandes.html" style="font-size:0.85rem; color:var(--caramel);">
+        Voir tout →
+      </a>
+    </div>
+
+    <div class="card" style="overflow:hidden;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr style="background:var(--creme);">
+            <th class="th-admin">#</th>
+            <th class="th-admin">Client</th>
+            <th class="th-admin">Total</th>
+            <th class="th-admin">Statut</th>
+            <th class="th-admin">Date</th>
+          </tr>
+        </thead>
+        <tbody id="dernières-commandes">
+          <tr>
+            <td colspan="5" style="text-align:center; padding:2rem;
+                                   color:var(--gris);">
+              Chargement...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    const STATUT = {
+      en_attente: { label: 'En attente',     color: '#f59e0b' },
+      confirmee:  { label: 'Confirmée',      color: '#3b82f6' },
+      en_cours:   { label: 'En préparation', color: '#8b5cf6' },
+      livree:     { label: 'Livrée',         color: '#10b981' },
+      annulee:    { label: 'Annulée',        color: '#ef4444' },
+    }
+
+    // Vérifier accès admin
+    function verifierAdmin() {
+      const user  = JSON.parse(localStorage.getItem('user') || 'null')
+      const token = localStorage.getItem('token')
+      if (!user || !token || user.role !== 'admin') {
+        window.location.href = '../connexion.html'
+        return
+      }
+      document.getElementById('admin-nom').textContent = user.prenom
+      chargerStats()
+      chargerDernieresCommandes()
+    }
+
+    // Charger les stats
+    async function chargerStats() {
+      const token = localStorage.getItem('token')
+      try {
+        const res  = await fetch(`${API_URL}/admin/stats`, {
+          headers: {
+            'Accept':        'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const data = await res.json()
+        const s    = data.data
+
+        document.getElementById('stat-commandes').textContent = s.total_commandes
+        document.getElementById('stat-clients').textContent   = s.total_clients
+        document.getElementById('stat-revenus').textContent   =
+          parseFloat(s.revenus_total).toFixed(2) + ' €'
+        document.getElementById('stat-produits').textContent  = s.total_produits
+        document.getElementById('stat-customs').textContent   = s.total_customs
+
+      } catch(err) {
+        console.error('Erreur stats:', err)
+      }
+    }
+
+    // Charger dernières commandes
+    async function chargerDernieresCommandes() {
+      const token = localStorage.getItem('token')
+      try {
+        const res  = await fetch(`${API_URL}/admin/commandes?limit=5`, {
+          headers: {
+            'Accept':        'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const data     = await res.json()
+        const commandes = data.data || []
+
+        if (commandes.length === 0) {
+          document.getElementById('dernières-commandes').innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align:center;
+                                     padding:2rem; color:var(--gris);">
+                Aucune commande
+              </td>
+            </tr>`
+          return
+        }
+
+        document.getElementById('dernières-commandes').innerHTML =
+          commandes.map(cmd => `
+            <tr style="border-top:1px solid var(--creme-dark);">
+              <td class="td-admin">#${cmd.id}</td>
+              <td class="td-admin">
+                ${cmd.user?.prenom || ''} ${cmd.user?.nom || ''}
+              </td>
+              <td class="td-admin">
+                ${parseFloat(cmd.total).toFixed(2)} €
+              </td>
+              <td class="td-admin">
+                <span style="background:${STATUT[cmd.statut]?.color || '#888'}22;
+                             color:${STATUT[cmd.statut]?.color || '#888'};
+                             padding:0.2rem 0.7rem; border-radius:50px;
+                             font-size:0.78rem; font-weight:600;">
+                  ${STATUT[cmd.statut]?.label || cmd.statut}
+                </span>
+              </td>
+              <td class="td-admin">
+                ${new Date(cmd.created_at).toLocaleDateString('fr-FR')}
+              </td>
+            </tr>
+          `).join('')
+
+      } catch(err) {
+        document.getElementById('dernières-commandes').innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align:center;
+                                   padding:2rem; color:var(--rouge);">
+              Erreur de chargement
+            </td>
+          </tr>`
+      }
+    }
+
+    function seDeconnecter() {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      window.location.href = '../connexion.html'
+    }
+
+    verifierAdmin()
+  </script>
+
+</body>
+</html>

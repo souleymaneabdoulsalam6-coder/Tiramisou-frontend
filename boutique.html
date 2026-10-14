@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Boutique — Tiramisu</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="commande-custom.html">Sur mesure</a></li>
+      <li><a href="mon-compte.html">Mon compte</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="panier.html" class="panier-icon">
+        🛍️ <span class="panier-count" id="panier-count">0</span>
+      </a>
+      <a href="connexion.html" class="btn btn-caramel" id="btn-connexion">
+        Connexion
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <div style="background:var(--creme); padding:3rem 2rem 2rem;">
+    <div class="container">
+      <p style="font-size:0.75rem; letter-spacing:0.15em; color:var(--caramel); text-transform:uppercase; margin-bottom:0.5rem;">
+        Pâtisserie artisanale
+      </p>
+      <h1 style="font-family:Georgia,serif; font-size:2.5rem; color:var(--marron);">
+        La boutique
+      </h1>
+      <p style="color:var(--gris); margin-top:0.5rem;">
+        Toutes nos créations fraîches du jour.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== FILTRES ===== -->
+  <div class="container" style="margin-top:2rem;">
+    <!-- Recherche -->
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center; margin-bottom:1.5rem;">
+      <div style="position:relative; flex:1; min-width:200px;">
+        <span style="position:absolute; left:1rem; top:50%; transform:translateY(-50%);">🔍</span>
+        <input
+          type="text"
+          id="recherche"
+          placeholder="Rechercher un produit..."
+          class="form-control"
+          style="padding-left:2.5rem;"
+        />
+      </div>
+      <!-- Tri -->
+      <select id="tri" class="form-control" style="width:auto;">
+        <option value="">Trier par</option>
+        <option value="prix-asc">Prix croissant</option>
+        <option value="prix-desc">Prix décroissant</option>
+        <option value="nom">Nom A-Z</option>
+      </select>
+    </div>
+
+    <!-- Catégories -->
+    <div style="display:flex; gap:0.8rem; flex-wrap:wrap; margin-bottom:2rem;" id="filtres-categories">
+      <button class="btn-filtre actif" data-cat="">Tout</button>
+      <button class="btn-filtre" data-cat="gateaux">🎂 Gâteaux</button>
+      <button class="btn-filtre" data-cat="pancakes">🥞 Pancakes</button>
+      <button class="btn-filtre" data-cat="cheesecakes">🍰 Cheesecakes</button>
+      <button class="btn-filtre" data-cat="cupcakes">🧁 Cupcakes</button>
+      <button class="btn-filtre" data-cat="viennoiseries">🥐 Viennoiseries</button>
+      <button class="btn-filtre" data-cat="donuts">🍩 Donuts</button>
+    </div>
+
+    <!-- Résultats -->
+    <p style="color:var(--gris); font-size:0.85rem; margin-bottom:1rem;">
+      <span id="nombre-resultats">0</span> produit(s) trouvé(s)
+    </p>
+
+    <!-- Grille produits -->
+    <div class="grid-produits" id="grille-produits">
+      <!-- Chargés dynamiquement -->
+    </div>
+
+    <!-- Message vide -->
+    <div id="message-vide" style="display:none; text-align:center; padding:4rem 0;">
+      <p style="font-size:3rem;">🔍</p>
+      <p style="font-family:Georgia,serif; font-size:1.5rem; color:var(--gris); margin-top:1rem;">
+        Aucun produit trouvé
+      </p>
+      <p style="color:var(--gris-clair); margin-top:0.5rem;">
+        Essayez d'autres termes ou catégories.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu</h3>
+        <p style="color:var(--creme-dark); font-size:0.85rem; line-height:1.7;">
+          Pâtisseries artisanales préparées avec amour.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gris-clair);">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="commande-custom.html">Sur mesure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gris-clair);">Contact</h4>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">contact@tiramisu.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Tiramisu. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/panier.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/boutique.js"></script>
+
+</body>
+</html>

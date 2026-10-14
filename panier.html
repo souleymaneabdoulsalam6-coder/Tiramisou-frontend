@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panier — Tiramisu</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="commande-custom.html">Sur mesure</a></li>
+      <li><a href="mon-compte.html">Mon compte</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="panier.html" class="panier-icon">
+        🛍️ <span class="panier-count" id="panier-count">0</span>
+      </a>
+      <a href="connexion.html" class="btn btn-caramel" id="btn-connexion">
+        Connexion
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENU ===== -->
+  <main class="container" style="padding-top:2rem; padding-bottom:4rem;">
+
+    <h1 style="font-family:Georgia,serif; font-size:2.5rem; color:var(--marron); margin-bottom:2rem;">
+      Mon panier
+    </h1>
+
+    <!-- Panier vide -->
+    <div id="panier-vide" style="display:none; text-align:center; padding:4rem 0;">
+      <p style="font-size:4rem;">🛍️</p>
+      <h2 style="font-family:Georgia,serif; color:var(--gris); margin:1rem 0 0.5rem;">
+        Votre panier est vide
+      </h2>
+      <p style="color:var(--gris-clair); margin-bottom:2rem;">
+        Ajoutez des créations depuis la boutique.
+      </p>
+      <a href="boutique.html" class="btn btn-caramel">Voir la boutique</a>
+    </div>
+
+    <!-- Panier rempli -->
+    <div id="panier-contenu" style="display:none;">
+      <div style="display:grid; grid-template-columns:1fr 340px; gap:2rem; align-items:start;">
+
+        <!-- Articles -->
+        <div>
+          <div id="liste-articles"></div>
+          <button onclick="viderPanier()"
+            style="margin-top:1rem; background:none; border:none; color:var(--gris-clair);
+                   font-size:0.82rem; cursor:pointer; text-decoration:underline;">
+            Vider le panier
+          </button>
+        </div>
+
+        <!-- Résumé -->
+        <div class="card" style="padding:1.5rem; position:sticky; top:80px;">
+          <h2 style="font-family:Georgia,serif; font-size:1.3rem; color:var(--marron); margin-bottom:1.2rem;">
+            Résumé
+          </h2>
+          <div id="resume-lignes" style="margin-bottom:1rem;"></div>
+          <div style="border-top:1.5px solid var(--creme-dark); padding-top:1rem;
+                      display:flex; justify-content:space-between; font-weight:600;
+                      color:var(--marron); margin-bottom:1.5rem;">
+            <span>Total</span>
+            <span id="total-prix">0.00 €</span>
+          </div>
+          <button class="btn btn-caramel" style="width:100%;"
+            onclick="window.location.href='checkout.html'">
+            Passer la commande
+          </button>
+          <a href="boutique.html"
+            style="display:block; text-align:center; margin-top:1rem;
+                   font-size:0.82rem; color:var(--caramel);">
+            ← Continuer mes achats
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu</h3>
+        <p style="color:var(--creme-dark); font-size:0.85rem; line-height:1.7;">
+          Pâtisseries artisanales préparées avec amour.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="commande-custom.html">Sur mesure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Contact</h4>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">contact@tiramisu.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Tiramisu. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/panier.js"></script>
+  <script>
+    // Afficher le panier au chargement
+    function afficherPanier() {
+      const panier = getPanier()
+      const vide   = document.getElementById('panier-vide')
+      const contenu = document.getElementById('panier-contenu')
+
+      if (panier.length === 0) {
+        vide.style.display = 'block'
+        contenu.style.display = 'none'
+        return
+      }
+
+      vide.style.display = 'none'
+      contenu.style.display = 'block'
+
+      // Liste articles
+      document.getElementById('liste-articles').innerHTML = panier.map(item => `
+        <div class="card" style="display:flex; gap:1rem; padding:1rem; margin-bottom:1rem; align-items:center;">
+          <div style="width:80px; height:80px; border-radius:12px; overflow:hidden;
+                      background:var(--creme); flex-shrink:0; display:flex;
+                      align-items:center; justify-content:center; font-size:2rem;">
+            ${item.image ? `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover;"/>` : '🎂'}
+          </div>
+          <div style="flex:1;">
+            <h3 style="font-family:Georgia,serif; font-size:1rem; color:var(--marron);">${item.nom}</h3>
+            <p style="color:var(--caramel); font-size:0.85rem;">${parseFloat(item.prix).toFixed(2)} €</p>
+            <div style="display:flex; align-items:center; gap:0.8rem; margin-top:0.5rem;">
+              <button onclick="changerQty(${item.id}, ${item.qty - 1})"
+                style="width:28px; height:28px; border-radius:50%; border:1.5px solid var(--creme-dark);
+                       background:white; cursor:pointer; font-size:1rem; display:flex;
+                       align-items:center; justify-content:center;">−</button>
+              <span style="font-size:0.9rem; min-width:20px; text-align:center;">${item.qty}</span>
+              <button onclick="changerQty(${item.id}, ${item.qty + 1})"
+                style="width:28px; height:28px; border-radius:50%; border:1.5px solid var(--creme-dark);
+                       background:white; cursor:pointer; font-size:1rem; display:flex;
+                       align-items:center; justify-content:center;">+</button>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:1rem;">
+            <button onclick="supprimerDuPanier(${item.id})"
+              style="background:none; border:none; cursor:pointer; color:var(--gris-clair);
+                     font-size:1.1rem;">🗑️</button>
+            <span style="font-weight:600; color:var(--marron);">
+              ${(item.prix * item.qty).toFixed(2)} €
+            </span>
+          </div>
+        </div>
+      `).join('')
+
+      // Résumé
+      document.getElementById('resume-lignes').innerHTML = panier.map(i => `
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem;
+                    color:var(--gris); margin-bottom:0.5rem;">
+          <span>${i.nom} × ${i.qty}</span>
+          <span>${(i.prix * i.qty).toFixed(2)} €</span>
+        </div>
+      `).join('')
+
+      // Total
+      const total = panier.reduce((s, i) => s + i.prix * i.qty, 0)
+      document.getElementById('total-prix').textContent = total.toFixed(2) + ' €'
+    }
+
+    function changerQty(id, nouvelleQty) {
+      if (nouvelleQty < 1) {
+        supprimerDuPanier(id)
+        return
+      }
+      mettreAJourQty(id, nouvelleQty)
+      afficherPanier()
+      mettreAJourCompteur()
+    }
+
+    function viderPanier() {
+      if (confirm('Vider le panier ?')) {
+        localStorage.removeItem('panier')
+        afficherPanier()
+        mettreAJourCompteur()
+      }
+    }
+
+    // Lancer
+    afficherPanier()
+    mettreAJourCompteur()
+  </script>
+
+</body>
+</html>

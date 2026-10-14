@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produit — Tiramisu</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="commande-custom.html">Sur mesure</a></li>
+      <li><a href="mon-compte.html">Mon compte</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="panier.html" class="panier-icon">
+        🛍️ <span class="panier-count" id="panier-count">0</span>
+      </a>
+      <a href="connexion.html" class="btn btn-caramel" id="btn-connexion">
+        Connexion
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENU ===== -->
+  <main class="container" style="padding-top:2rem; padding-bottom:4rem;">
+
+    <!-- Retour -->
+    <a href="boutique.html"
+      style="display:inline-flex; align-items:center; gap:0.4rem;
+             color:var(--gris); font-size:0.85rem; margin-bottom:2rem;
+             text-decoration:none;">
+      ← Retour à la boutique
+    </a>
+
+    <!-- Chargement -->
+    <div id="produit-loading">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem;">
+        <div style="aspect-ratio:1; background:var(--creme);
+                    border-radius:20px; animation:skeleton-loading 1.5s infinite;">
+        </div>
+        <div style="padding-top:1rem;">
+          <div style="height:16px; background:var(--creme); border-radius:8px;
+                      width:30%; margin-bottom:1rem;
+                      animation:skeleton-loading 1.5s infinite;"></div>
+          <div style="height:40px; background:var(--creme); border-radius:8px;
+                      width:80%; margin-bottom:1rem;
+                      animation:skeleton-loading 1.5s infinite;"></div>
+          <div style="height:80px; background:var(--creme); border-radius:8px;
+                      animation:skeleton-loading 1.5s infinite;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produit -->
+    <div id="produit-contenu" style="display:none;">
+      <div style="display:grid; grid-template-columns:1fr 1fr;
+                  gap:3rem; align-items:start;">
+
+        <!-- Image -->
+        <div id="produit-image-box"
+          style="aspect-ratio:1; border-radius:20px; overflow:hidden;
+                 background:var(--creme); display:flex;
+                 align-items:center; justify-content:center; font-size:6rem;">
+        </div>
+
+        <!-- Infos -->
+        <div style="padding-top:1rem;">
+          <p id="produit-categorie"
+            style="font-size:0.75rem; color:var(--caramel);
+                   text-transform:uppercase; letter-spacing:0.15em;
+                   margin-bottom:0.5rem;">
+          </p>
+          <h1 id="produit-nom"
+            style="font-family:Georgia,serif; font-size:2.5rem;
+                   color:var(--marron); line-height:1.2; margin-bottom:1rem;">
+          </h1>
+          <p id="produit-description"
+            style="color:var(--gris); line-height:1.8;
+                   margin-bottom:1.5rem; font-size:0.95rem;">
+          </p>
+          <p id="produit-prix"
+            style="font-size:2.2rem; font-weight:700;
+                   color:var(--marron); margin-bottom:2rem;">
+          </p>
+
+          <!-- Stock dispo -->
+          <div id="produit-dispo" style="display:none; margin-bottom:2rem;">
+
+            <!-- Quantité -->
+            <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+              <span style="font-size:0.85rem; color:var(--gris);">Quantité</span>
+              <div style="display:flex; align-items:center; gap:0.8rem;
+                          border:1.5px solid var(--creme-dark); border-radius:50px;
+                          padding:0.4rem 1rem;">
+                <button onclick="changerQtyDetail(-1)"
+                  style="background:none; border:none; cursor:pointer;
+                         color:var(--gris); font-size:1.1rem; line-height:1;">
+                  −
+                </button>
+                <span id="qty-detail"
+                  style="font-size:0.95rem; min-width:24px; text-align:center;">
+                  1
+                </span>
+                <button onclick="changerQtyDetail(1)"
+                  style="background:none; border:none; cursor:pointer;
+                         color:var(--gris); font-size:1.1rem; line-height:1;">
+                  +
+                </button>
+              </div>
+              <span id="stock-dispo"
+                style="font-size:0.8rem; color:var(--gris-clair);">
+              </span>
+            </div>
+
+            <button id="btn-ajouter" class="btn btn-caramel"
+              style="width:100%; font-size:1rem; padding:1rem;"
+              onclick="ajouterDepuisDetail()">
+              🛍️ Ajouter au panier
+            </button>
+
+          </div>
+
+          <!-- Épuisé -->
+          <div id="produit-epuise" style="display:none;">
+            <div style="background:var(--creme); border-radius:12px;
+                        padding:1.2rem; text-align:center; margin-bottom:1rem;">
+              <p style="color:var(--gris); font-size:0.9rem;">
+                Ce produit est épuisé pour le moment.
+              </p>
+            </div>
+            <a href="commande-custom.html" class="btn btn-outline"
+              style="display:block; text-align:center;">
+              Commander sur mesure →
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Produit introuvable -->
+    <div id="produit-erreur" style="display:none; text-align:center; padding:4rem 0;">
+      <p style="font-size:4rem;">😕</p>
+      <h2 style="font-family:Georgia,serif; color:var(--gris); margin:1rem 0 0.5rem;">
+        Produit introuvable
+      </h2>
+      <a href="boutique.html" class="btn btn-caramel"
+        style="display:inline-block; margin-top:1rem;">
+        Retour à la boutique
+      </a>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu</h3>
+        <p style="color:var(--creme-dark); font-size:0.85rem; line-height:1.7;">
+          Pâtisseries artisanales préparées avec amour.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="commande-custom.html">Sur mesure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Contact</h4>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">
+          contact@tiramisu.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Tiramisu. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/panier.js"></script>
+  <script>
+    let produitActuel = null
+    let qtyDetail     = 1
+
+    // Récupérer l'ID depuis l'URL
+    function getIdDepuisUrl() {
+      const params = new URLSearchParams(window.location.search)
+      return params.get('id')
+    }
+
+    // Charger le produit
+    async function chargerProduit() {
+      const id = getIdDepuisUrl()
+
+      if (!id) {
+        document.getElementById('produit-loading').style.display = 'none'
+        document.getElementById('produit-erreur').style.display  = 'block'
+        return
+      }
+
+      try {
+        const res  = await fetch(`${API_URL}/produits/${id}`)
+        const data = await res.json()
+
+        if (!res.ok || !data.data) {
+          document.getElementById('produit-loading').style.display = 'none'
+          document.getElementById('produit-erreur').style.display  = 'block'
+          return
+        }
+
+        produitActuel = data.data
+        afficherProduit(produitActuel)
+
+      } catch(err) {
+        document.getElementById('produit-loading').style.display = 'none'
+        document.getElementById('produit-erreur').style.display  = 'block'
+      }
+    }
+
+    // Afficher le produit
+    function afficherProduit(p) {
+      document.title = `${p.nom} — Tiramisu`
+
+      // Image
+      const imgBox = document.getElementById('produit-image-box')
+      imgBox.innerHTML = p.image
+        ? `<img src="${p.image}" alt="${p.nom}"
+               style="width:100%; height:100%; object-fit:cover;"/>`
+        : '🎂'
+
+      // Infos
+      document.getElementById('produit-categorie').textContent =
+        p.categorie?.nom || ''
+      document.getElementById('produit-nom').textContent  = p.nom
+      document.getElementById('produit-description').textContent =
+        p.description || ''
+      document.getElementById('produit-prix').textContent =
+        parseFloat(p.prix).toFixed(2) + ' €'
+
+      // Stock
+      if (p.stock > 0) {
+        document.getElementById('produit-dispo').style.display  = 'block'
+        document.getElementById('produit-epuise').style.display = 'none'
+        document.getElementById('stock-dispo').textContent =
+          `${p.stock} disponible(s)`
+      } else {
+        document.getElementById('produit-dispo').style.display  = 'none'
+        document.getElementById('produit-epuise').style.display = 'block'
+      }
+
+      // Afficher
+      document.getElementById('produit-loading').style.display  = 'none'
+      document.getElementById('produit-contenu').style.display  = 'block'
+    }
+
+    // Changer quantité
+    function changerQtyDetail(delta) {
+      if (!produitActuel) return
+      qtyDetail = Math.max(1, Math.min(produitActuel.stock, qtyDetail + delta))
+      document.getElementById('qty-detail').textContent = qtyDetail
+    }
+
+    // Ajouter au panier depuis la fiche
+    function ajouterDepuisDetail() {
+      if (!produitActuel) return
+      ajouterAuPanier(produitActuel, qtyDetail)
+    }
+
+    chargerProduit()
+    mettreAJourCompteur()
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commande sur mesure — Tiramisu</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">Tirami<span>su</span></a>
+    <ul class="navbar-links">
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="commande-custom.html">Sur mesure</a></li>
+      <li><a href="mon-compte.html">Mon compte</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="panier.html" class="panier-icon">
+        🛍️ <span class="panier-count" id="panier-count">0</span>
+      </a>
+      <a href="connexion.html" class="btn btn-caramel" id="btn-connexion">
+        Connexion
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <div style="background:var(--creme); padding:3rem 2rem 2rem;">
+    <div class="container">
+      <p style="font-size:0.75rem; letter-spacing:0.15em;
+                color:var(--caramel); text-transform:uppercase; margin-bottom:0.5rem;">
+        Sur mesure
+      </p>
+      <h1 style="font-family:Georgia,serif; font-size:2.5rem; color:var(--marron);">
+        Votre gâteau, votre histoire
+      </h1>
+      <p style="color:var(--gris); margin-top:0.5rem; max-width:500px; line-height:1.7;">
+        Décrivez-nous votre gâteau idéal. Nous vous contactons
+        sous 24h pour confirmer et fixer le prix.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== FORMULAIRE ===== -->
+  <main class="container" style="padding-top:2rem; padding-bottom:4rem; max-width:700px;">
+
+    <div class="card" style="padding:2rem;">
+
+      <!-- Type de pâtisserie -->
+      <div class="form-group">
+        <label>Type de pâtisserie *</label>
+        <div class="choix-groupe" id="choix-type">
+          <button class="choix-btn" data-val="gateau">🎂 Gâteau</button>
+          <button class="choix-btn" data-val="cheesecake">🍰 Cheesecake</button>
+          <button class="choix-btn" data-val="cupcakes">🧁 Cupcakes</button>
+          <button class="choix-btn" data-val="pancakes">🥞 Pancakes</button>
+          <button class="choix-btn" data-val="donuts">🍩 Donuts</button>
+          <button class="choix-btn" data-val="autre">✨ Autre</button>
+        </div>
+        <input type="hidden" id="type-patisserie"/>
+      </div>
+
+      <!-- Parfum -->
+      <div class="form-group">
+        <label>Parfum *</label>
+        <div class="choix-groupe" id="choix-parfum">
+          <button class="choix-btn" data-val="tiramisu">Tiramisu</button>
+          <button class="choix-btn" data-val="chocolat">Chocolat</button>
+          <button class="choix-btn" data-val="vanille">Vanille</button>
+          <button class="choix-btn" data-val="fraise">Fraise</button>
+          <button class="choix-btn" data-val="citron">Citron</button>
+          <button class="choix-btn" data-val="pistache">Pistache</button>
+          <button class="choix-btn" data-val="caramel">Caramel</button>
+          <button class="choix-btn" data-val="speculoos">Spéculoos</button>
+        </div>
+        <input type="hidden" id="parfum"/>
+      </div>
+
+      <!-- Taille -->
+      <div class="form-group">
+        <label>Taille *</label>
+        <div class="choix-groupe" id="choix-taille">
+          <button class="choix-btn" data-val="4">4 parts</button>
+          <button class="choix-btn" data-val="6">6 parts</button>
+          <button class="choix-btn" data-val="8">8 parts</button>
+          <button class="choix-btn" data-val="12">12 parts</button>
+          <button class="choix-btn" data-val="16">16 parts</button>
+        </div>
+        <input type="hidden" id="taille"/>
+      </div>
+
+      <!-- Occasion -->
+      <div class="form-group">
+        <label>Occasion</label>
+        <div class="choix-groupe" id="choix-occasion">
+          <button class="choix-btn" data-val="anniversaire">🎂 Anniversaire</button>
+          <button class="choix-btn" data-val="mariage">💍 Mariage</button>
+          <button class="choix-btn" data-val="bapteme">👶 Baptême</button>
+          <button class="choix-btn" data-val="fete">🎉 Fête</button>
+          <button class="choix-btn" data-val="autre">✨ Autre</button>
+        </div>
+        <input type="hidden" id="occasion"/>
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label>Message sur le gâteau</label>
+        <input type="text" id="message" class="form-control"
+          maxlength="60" placeholder="ex: Joyeux anniversaire Sarah !"/>
+        <p style="font-size:0.75rem; color:var(--gris-clair); margin-top:0.3rem;">
+          Maximum 60 caractères
+        </p>
+      </div>
+
+      <!-- Date de livraison -->
+      <div class="form-group">
+        <label>Date de livraison souhaitée *</label>
+        <input type="date" id="date-livraison" class="form-control"/>
+        <p style="font-size:0.75rem; color:var(--gris-clair); margin-top:0.3rem;">
+          Minimum 3 jours à l'avance
+        </p>
+      </div>
+
+      <!-- Allergies -->
+      <div class="form-group">
+        <label>Allergies / restrictions</label>
+        <input type="text" id="allergies" class="form-control"
+          placeholder="Sans gluten, sans lactose…"/>
+      </div>
+
+      <!-- Détails -->
+      <div class="form-group">
+        <label>Détails supplémentaires</label>
+        <textarea id="details" class="form-control" rows="4"
+          placeholder="Couleurs souhaitées, thème, inspirations..."></textarea>
+      </div>
+
+      <!-- Coordonnées -->
+      <div style="background:var(--creme); border-radius:12px;
+                  padding:1.2rem; margin-bottom:1.5rem;">
+        <h3 style="font-family:Georgia,serif; font-size:1rem;
+                   margin-bottom:1rem; color:var(--marron);">
+          Vos coordonnées
+        </h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Prénom *</label>
+            <input type="text" id="custom-prenom" class="form-control"/>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Nom *</label>
+            <input type="text" id="custom-nom" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:1rem; margin-bottom:0;">
+          <label>Email *</label>
+          <input type="email" id="custom-email" class="form-control"/>
+        </div>
+        <div class="form-group" style="margin-top:1rem; margin-bottom:0;">
+          <label>Téléphone *</label>
+          <input type="tel" id="custom-telephone" class="form-control"/>
+        </div>
+      </div>
+
+      <!-- Erreur / Succès -->
+      <div id="custom-erreur"
+        style="color:var(--rouge); font-size:0.85rem;
+               margin-bottom:1rem; display:none;">
+      </div>
+      <div id="custom-succes"
+        style="background:#d4edda; color:var(--vert); font-size:0.85rem;
+               padding:1rem; border-radius:10px;
+               margin-bottom:1rem; display:none;">
+      </div>
+
+      <!-- Bouton -->
+      <button class="btn btn-caramel" style="width:100%; font-size:1rem;"
+        onclick="envoyerCommandeCustom()">
+        Envoyer ma demande
+      </button>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">Tiramisu</h3>
+        <p style="color:var(--creme-dark); font-size:0.85rem; line-height:1.7;">
+          Pâtisseries artisanales préparées avec amour.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="commande-custom.html">Sur mesure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem; font-size:0.8rem; text-transform:uppercase;
+                   letter-spacing:0.1em; color:var(--gris-clair);">Contact</h4>
+        <p style="color:var(--creme-dark); font-size:0.85rem;">
+          contact@tiramisu.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Tiramisu. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/panier.js"></script>
+  <script>
+    // Date minimum = aujourd'hui + 3 jours
+    const dateMin = new Date()
+    dateMin.setDate(dateMin.getDate() + 3)
+    document.getElementById('date-livraison').min =
+      dateMin.toISOString().split('T')[0]
+
+    // Pré-remplir si connecté
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+    if (user.prenom) document.getElementById('custom-prenom').value = user.prenom
+    if (user.nom)    document.getElementById('custom-nom').value    = user.nom
+    if (user.email)  document.getElementById('custom-email').value  = user.email
+
+    // Boutons choix
+    document.querySelectorAll('.choix-groupe').forEach(groupe => {
+      groupe.querySelectorAll('.choix-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          groupe.querySelectorAll('.choix-btn')
+            .forEach(b => b.classList.remove('actif'))
+          btn.classList.add('actif')
+          // Mettre à jour le champ caché
+          const inputId = groupe.id.replace('choix-', '')
+          const input = document.getElementById(inputId)
+          if (input) input.value = btn.dataset.val
+        })
+      })
+    })
+
+    // Envoyer la demande
+    async function envoyerCommandeCustom() {
+      const erreur = document.getElementById('custom-erreur')
+      const succes = document.getElementById('custom-succes')
+      erreur.style.display = 'none'
+      succes.style.display = 'none'
+
+      const type          = document.getElementById('type-patisserie').value
+      const parfum        = document.getElementById('parfum').value
+      const taille        = document.getElementById('taille').value
+      const occasion      = document.getElementById('occasion').value
+      const message       = document.getElementById('message').value
+      const dateLivraison = document.getElementById('date-livraison').value
+      const allergies     = document.getElementById('allergies').value
+      const details       = document.getElementById('details').value
+      const prenom        = document.getElementById('custom-prenom').value.trim()
+      const nom           = document.getElementById('custom-nom').value.trim()
+      const email         = document.getElementById('custom-email').value.trim()
+      const telephone     = document.getElementById('custom-telephone').value.trim()
+
+      // Validation
+      if (!type || !parfum || !taille || !dateLivraison || !prenom || !nom || !email || !telephone) {
+        erreur.textContent = 'Veuillez remplir tous les champs obligatoires (*).'
+        erreur.style.display = 'block'
+        return
+      }
+
+      const token = localStorage.getItem('token')
+
+      try {
+        const res = await fetch(`${API_URL}/commandes-custom`, {
+          method: 'POST',
+          headers: {
+            'Content-Type':  'application/json',
+            'Accept':        'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            type_patisserie: type,
+            parfum, taille, occasion, message,
+            date_livraison:  dateLivraison,
+            allergies, details, prenom, nom, email, telephone
+          })
+        })
+
+        const data = await res.json()
+
+        if (!res.ok) {
+          erreur.textContent = data.message || 'Erreur lors de l\'envoi.'
+          erreur.style.display = 'block'
+          return
+        }
+
+        succes.textContent =
+          '✅ Demande envoyée ! Nous vous contacterons sous 24h pour confirmer et fixer le prix.'
+        succes.style.display = 'block'
+
+        // Réinitialiser le formulaire
+        document.querySelectorAll('.choix-btn')
+          .forEach(b => b.classList.remove('actif'))
+        document.querySelectorAll('input[type="hidden"]')
+          .forEach(i => i.value = '')
+        document.getElementById('message').value        = ''
+        document.getElementById('date-livraison').value = ''
+        document.getElementById('allergies').value      = ''
+        document.getElementById('details').value        = ''
+
+      } catch(err) {
+        erreur.textContent = 'Erreur réseau. Réessayez.'
+        erreur.style.display = 'block'
+      }
+    }
+
+    mettreAJourCompteur()
+  </script>
+
+</body>
+</html>
