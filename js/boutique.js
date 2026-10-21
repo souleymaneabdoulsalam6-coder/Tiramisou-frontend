@@ -1,6 +1,4 @@
 // ===== BOUTIQUE.JS =====
-const API_URL = 'https://ton-api.infinityfree.com/api'
-
 let tousLesProduits = []
 let categorieActive = ''
 
