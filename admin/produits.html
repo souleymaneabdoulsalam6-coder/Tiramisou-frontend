@@ -104,9 +104,9 @@
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
           <div class="form-group">
-            <label>Prix (€) *</label>
+            <label>Prix (FCFA) *</label>
             <input type="number" id="produit-prix" class="form-control"
-              step="0.01" min="0" placeholder="12.90"/>
+              step="1" min="0" placeholder="5000"/>
           </div>
           <div class="form-group">
             <label>Stock *</label>
@@ -262,7 +262,7 @@
                 ${p.categorie?.nom || '<span style="color:var(--gris-clair);">—</span>'}
               </td>
               <td class="td-admin" style="font-weight:600;">
-                ${parseFloat(p.prix).toFixed(2)} €
+                ${parseFloat(p.prix).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA
               </td>
               <td class="td-admin">
                 <span class="badge ${p.stock > 0 ? 'badge-vert' : 'badge-rouge'}">

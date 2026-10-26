@@ -120,7 +120,7 @@
                     display:flex; justify-content:space-between;
                     font-weight:700; color:var(--marron); font-size:1.1rem;">
           <span>Total</span>
-          <span id="total-checkout">0.00 €</span>
+          <span id="total-checkout">0FCFA</span>
         </div>
       </div>
 
@@ -182,13 +182,13 @@
           <div style="display:flex; justify-content:space-between;
                       font-size:0.85rem; color:var(--gris); margin-bottom:0.6rem;">
             <span>${i.nom} × ${i.qty}</span>
-            <span>${(i.prix * i.qty).toFixed(2)} €</span>
+            <span>${(i.prix * i.qty).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA</span>
           </div>
         `).join('')
 
       const total = panier.reduce((s, i) => s + i.prix * i.qty, 0)
       document.getElementById('total-checkout').textContent =
-        total.toFixed(2) + ' €'
+        total.toLocaleString('fr-FR', {maximumFractionDigits: 0}) + ' FCFA'
     }
 
     // Passer la commande

@@ -29,7 +29,7 @@ async function chargerVedettes() {
           <h3 class="card-title">${p.nom}</h3>
           <div class="card-footer">
             <span class="card-price">
-              ${parseFloat(p.prix).toFixed(2)} €
+              ${parseFloat(p.prix).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA
             </span>
             <button
               class="btn btn-caramel"

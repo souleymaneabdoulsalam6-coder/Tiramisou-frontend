@@ -69,7 +69,7 @@
                       display:flex; justify-content:space-between; font-weight:600;
                       color:var(--marron); margin-bottom:1.5rem;">
             <span>Total</span>
-            <span id="total-prix">0.00 €</span>
+            <span id="total-prix">0FCFA</span>
           </div>
           <button class="btn btn-caramel" style="width:100%;"
             onclick="window.location.href='checkout.html'">
@@ -145,7 +145,7 @@
           </div>
           <div style="flex:1;">
             <h3 style="font-family:Georgia,serif; font-size:1rem; color:var(--marron);">${item.nom}</h3>
-            <p style="color:var(--caramel); font-size:0.85rem;">${parseFloat(item.prix).toFixed(2)} €</p>
+            <p style="color:var(--caramel); font-size:0.85rem;">${parseFloat(item.prix).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA</p>
             <div style="display:flex; align-items:center; gap:0.8rem; margin-top:0.5rem;">
               <button onclick="changerQty(${item.id}, ${item.qty - 1})"
                 style="width:28px; height:28px; border-radius:50%; border:1.5px solid var(--creme-dark);
@@ -163,7 +163,7 @@
               style="background:none; border:none; cursor:pointer; color:var(--gris-clair);
                      font-size:1.1rem;">🗑️</button>
             <span style="font-weight:600; color:var(--marron);">
-              ${(item.prix * item.qty).toFixed(2)} €
+              ${(item.prix * item.qty).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA
             </span>
           </div>
         </div>
@@ -174,13 +174,14 @@
         <div style="display:flex; justify-content:space-between; font-size:0.85rem;
                     color:var(--gris); margin-bottom:0.5rem;">
           <span>${i.nom} × ${i.qty}</span>
-          <span>${(i.prix * i.qty).toFixed(2)} €</span>
+          <span>${(i.prix * i.qty).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA</span>
         </div>
       `).join('')
 
       // Total
       const total = panier.reduce((s, i) => s + i.prix * i.qty, 0)
-      document.getElementById('total-prix').textContent = total.toFixed(2) + ' €'
+      document.getElementById('total-prix').textContent =
+        total.toLocaleString('fr-FR', {maximumFractionDigits: 0}) + ' FCFA'
     }
 
     function changerQty(id, nouvelleQty) {

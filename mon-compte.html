@@ -265,7 +265,7 @@
                   <div style="display:flex; justify-content:space-between;
                               font-size:0.85rem; color:var(--gris); margin-bottom:0.3rem;">
                     <span>${l.produit?.nom || 'Produit'} × ${l.quantite}</span>
-                    <span>${(l.prix_unitaire * l.quantite).toFixed(2)} €</span>
+                    <span>${(l.prix_unitaire * l.quantite).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA</span>
                   </div>
                 `).join('') || ''}
                 <div style="display:flex; justify-content:space-between;
@@ -273,7 +273,7 @@
                             margin-top:0.5rem; padding-top:0.5rem;
                             border-top:1px solid var(--creme-dark);">
                   <span>Total</span>
-                  <span>${parseFloat(cmd.total).toFixed(2)} €</span>
+                  <span>${parseFloat(cmd.total).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA</span>
                 </div>
               </div>
             </div>

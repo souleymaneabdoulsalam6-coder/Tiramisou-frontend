@@ -45,7 +45,7 @@ function afficherProduits(produits) {
           ${p.description?.substring(0, 60) || ''}...
         </p>
         <div class="card-footer">
-          <span class="card-price">${parseFloat(p.prix).toFixed(2)} €</span>
+          <span class="card-price">${parseFloat(p.prix).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA</span>
           <button
             class="btn btn-caramel"
             style="font-size:0.78rem; padding:0.4rem 0.9rem;"

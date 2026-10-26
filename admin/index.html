@@ -182,7 +182,7 @@
         document.getElementById('stat-commandes').textContent = s.total_commandes
         document.getElementById('stat-clients').textContent   = s.total_clients
         document.getElementById('stat-revenus').textContent   =
-          parseFloat(s.revenus_total).toFixed(2) + ' €'
+          parseFloat(s.revenus_total).toLocaleString('fr-FR', {maximumFractionDigits: 0}) + ' FCFA'
         document.getElementById('stat-produits').textContent  = s.total_produits
         document.getElementById('stat-customs').textContent   = s.total_customs
 
@@ -223,7 +223,7 @@
                 ${cmd.user?.prenom || ''} ${cmd.user?.nom || ''}
               </td>
               <td class="td-admin">
-                ${parseFloat(cmd.total).toFixed(2)} €
+                ${parseFloat(cmd.total).toLocaleString('fr-FR', {maximumFractionDigits: 0})} FCFA
               </td>
               <td class="td-admin">
                 <span style="background:${STATUT[cmd.statut]?.color || '#888'}22;

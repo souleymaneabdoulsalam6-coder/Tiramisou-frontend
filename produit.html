@@ -248,7 +248,7 @@
       document.getElementById('produit-description').textContent =
         p.description || ''
       document.getElementById('produit-prix').textContent =
-        parseFloat(p.prix).toFixed(2) + ' €'
+        parseFloat(p.prix).toLocaleString('fr-FR', {maximumFractionDigits: 0}) + ' FCFA'
 
       // Stock
       if (p.stock > 0) {
